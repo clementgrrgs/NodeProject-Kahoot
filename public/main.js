@@ -1,4 +1,4 @@
-var update = document.getElementById('update');
+/*var update = document.getElementById('update');
 
 update.addEventListener('click', () => {
     fetch('quiz', {
@@ -36,4 +36,4 @@ del.addEventListener('click', function () {
     console.log(data)
     window.location.reload()
   })
-})
+})*/
