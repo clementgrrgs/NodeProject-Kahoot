@@ -1,3 +1,19 @@
 <%- include('../_header'); -%>
 
-<%- include('../_footer'); -%>
+<body>
+    <header>
+        <h4>Kizz</h4>
+    </header>
+
+    <form action=<%="/quizz/edit/"+ quizz.id %> method="POST">
+
+        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+            <input class="mdl-textfield__input" type="text" id="title" name="title">
+            <label class="mdl-textfield__label" for="title"><%= quizz.title %></label>
+        </div>
+
+        <button type="submit" class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored">
+            Edit
+        </button>
+    </form>
+    <%- include('../_footer'); -%>

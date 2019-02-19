@@ -23,7 +23,7 @@ router.get('/auth/google/callback',
         failureRedirect: '/login'
     }),
     function (req, res) {
-        res.redirect('/');
+        res.redirect('/quizz/show');
     });
 
 router.get('/logout', (req, res, next) => {
