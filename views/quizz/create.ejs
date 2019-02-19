@@ -1,54 +1,56 @@
 <%- include('../_header'); -%>
+
 <body>
-<header>
-    <h4>Kizz</h4>
-</header>
+    <header>
+        <h4>Kizz</h4>
+    </header>
 
-<form action="#" method="POST">
+    <form action="/quizz/create" method="POST">
 
-    <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-        <input class="mdl-textfield__input" type="text" id="title">
-        <label class="mdl-textfield__label" for="title">Title</label>
-    </div>
+        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+            <input class="mdl-textfield__input" type="text" id="title">
+            <label class="mdl-textfield__label" for="title">Title</label>
+        </div>
 
 
-    <% for (var i = 0; i<nbQuestion; i++){%>
+        <% for (var i = 0; i<nbQuestion; i++){%>
         <div class="question">
             <!-- Question -->
             <div class="mdl-textfield mdl-js-textfield question-text">
-                <textarea class="mdl-textfield__input" type="text" rows= "2" id='Question'+i ></textarea>
-                <label class="mdl-textfield__label" for='Question'+i>Question <%=i+1%></label>
+                <textarea class="mdl-textfield__input" type="text" rows="2" id='Question' +i></textarea>
+                <label class="mdl-textfield__label" for='Question' +i>Question
+                    <%=i+1%></label>
             </div>
             <!-- Answers (4)-->
-            <div class= "Answer">
+            <div class="Answer">
                 <div class="mdl-textfield mdl-js-textfield">
-                    <textarea class="mdl-textfield__input" type="text" rows= "2" id='Answer1'+i></textarea>
-                    <label class="mdl-textfield__label" for='Answer1'+i>Answer 1</label>
+                    <textarea class="mdl-textfield__input" type="text" rows="2" id='Answer1' +i></textarea>
+                    <label class="mdl-textfield__label" for='Answer1' +i>Answer 1</label>
                 </div>
                 <div class="mdl-textfield mdl-js-textfield">
-                    <textarea class="mdl-textfield__input" type="text" rows= "2" id='Answer2'+i></textarea>
-                    <label class="mdl-textfield__label" for='Answer2'+i>Answer 2</label>
+                    <textarea class="mdl-textfield__input" type="text" rows="2" id='Answer2' +i></textarea>
+                    <label class="mdl-textfield__label" for='Answer2' +i>Answer 2</label>
                 </div>
                 <div class="mdl-textfield mdl-js-textfield">
-                    <textarea class="mdl-textfield__input" type="text" rows= "2" id='Answer3'+i></textarea>
-                    <label class="mdl-textfield__label" for='Answer3'+i>Answer 3</label>
+                    <textarea class="mdl-textfield__input" type="text" rows="2" id='Answer3' +i></textarea>
+                    <label class="mdl-textfield__label" for='Answer3' +i>Answer 3</label>
                 </div>
                 <div class="mdl-textfield mdl-js-textfield">
-                    <textarea class="mdl-textfield__input" type="text" rows= "2" id='Answer4'+i></textarea>
-                    <label class="mdl-textfield__label" for='Answer4'+i>Answer 4</label>
+                    <textarea class="mdl-textfield__input" type="text" rows="2" id='Answer4' +i></textarea>
+                    <label class="mdl-textfield__label" for='Answer4' +i>Answer 4</label>
                 </div>
             </div>
             <!-- Question Duration -->
             <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label question-duration">
-                <input class="mdl-textfield__input" type="text" pattern="-?[0-9]*(\.[0-9]+)?" id="duration"+i>
-                <label class="mdl-textfield__label" for="duration"+i>Duration (sec)</label>
+                <input class="mdl-textfield__input" type="text" pattern="-?[0-9]*(\.[0-9]+)?" id="duration" +i>
+                <label class="mdl-textfield__label" for="duration" +i>Duration (sec)</label>
                 <span class="mdl-textfield__error">Input is not a number!</span>
-            </div> 
+            </div>
         </div>
-    <%}%>
+        <%}%>
 
-    <button type="submit" class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored">
-        Create
-    </button>
-</form>
-<%- include('../_footer'); -%>
+        <button type="submit" class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored">
+            Create
+        </button>
+    </form>
+    <%- include('../_footer'); -%>

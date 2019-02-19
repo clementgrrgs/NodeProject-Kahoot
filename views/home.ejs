@@ -1,13 +1,19 @@
 <%- include('_header'); -%>
-    <body>
-        <header>
-            <h4>Kizz</h4>
-                <%console.log(username);%>
-                <a href='logout'><button>Log Out</button></a>
-                <a href='login'><button>Log In</button></a>
-        </header>
+
+<body>
+    <header>
+        <h4>Kizz</h4>
+        <% if(user != null){ %>
+        <h6>
+            <%=user.username%>
+        </h6>
+        <a href='logout'><button>Log Out</button></a>
+        <% }else{ %>
+        <a href='login'><button>Log In</button></a>
+        <% }%>
+    </header>
 
     <div>
     </div>
 
-<%- include('_footer'); -%>
+    <%- include('_footer'); -%>
