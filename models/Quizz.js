@@ -13,6 +13,7 @@ var Quizz = new Schema ({
     questions: [{
         text: String,
         response: [String],
+        answer: String,
         duration: { 
             type: Number,
             default: 10
