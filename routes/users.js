@@ -6,7 +6,9 @@ require('../passport/google-strategy')(passport);
 
 
 router.get('/login', (req, res, next) => {
-    res.render('users/login');
+    res.render('users/login', {
+        user: req.user
+    });
 });
 
 

@@ -8,12 +8,14 @@ module.exports = (io) => {
     router.get('/show', (req,res,next) => {
         mongoose.model('Quizz').find({}, (err, result) => {
             if (err) return console.log(err);
-            res.render('quizz/show', {quizzs: result});
+            res.render('quizz/show', {quizzs: result, user: req.user});
         });
     });
 
     router.get('/create', (req, res, next) => {
-        res.render('quizz/create');
+        res.render('quizz/create', {
+            user: req.user
+        });
     });
 
     router.post('/create', (req, res, next) => {
@@ -31,7 +33,8 @@ module.exports = (io) => {
     router.get('/edit/:id', (req, res, next) => {
         mongoose.model('Quizz').findById(req.params.id, (err, item) => {
             res.render('quizz/edit', {
-                quizz: item
+                quizz: item, 
+                user: req.user
             });
         });
     });

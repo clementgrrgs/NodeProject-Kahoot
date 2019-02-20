@@ -2,30 +2,72 @@
 
 <body>
     <header>
-        <h4>Kizz</h4>
+        <div class="div-header">
+            <div class="div-icon-title">
+                <img class="img_Icon" src="/img/KizzIcon.png" alt="KizzIcon">
+                <h2>Kizz</h2>
+            </div>
+            <% if(user != null){ %>
+            <div class="div-log">
+                <h6><%=user.username%></h6>
+                <a href='logout'><button class="mdl-button mdl-js-button mdl-button--raised mdl-button--accent">LogOut</button></a>
+            </div>
+            <% }else{ %>
+            <a href='login'><button class="mdl-button mdl-js-button mdl-button--raised mdl-button--accent">LogIn</button></a>
+            <% }%>
+        </div>
     </header>
 
+
     <ul class="demo-list-three mdl-list">
-    <% for(var i=0; i<quizzs.length; i++) {%>
+    <% for(var i=quizzs.length-1; i>=0; i--) {%>
         <li class="mdl-list__item mdl-list__item--three-line">
-            <span class="mdl-list__item-primary-content">
-            <i class="material-icons mdl-list__item-avatar">person</i>
-            <span><%=quizzs[i].title%></span>
-                <span class="mdl-list__item-text-body">
-                    Bryan Cranston played the role of Walter in Breaking Bad. He is also known
-                    for playing Hal in Malcom in the Middle.
-                </span>
-            </span>
-            <span class="mdl-list__item-secondary-content">
-                <a href=<%="/quizz/edit/"+quizzs[i].id %> >Edit</a>
-                <a href=<%="/quizz/delete/"+quizzs[i].id %> >Delete</a>
-            </span>
+            <div class="text-field-show">
+                <div id='id_div_li'>
+                    <div>
+                        <img class="img_Show" src="/img/questionMarkRounded.png" alt="Question">
+                        <span><%=quizzs[i].title%></span>
+                    </div>
+                    <div class="btn-field-show">
+                        <a href=<%="/quizz/edit/"+quizzs[i].id %> ><i class="material-icons"> edit</i></a>
+                        <a href=<%="/quizz/delete/"+quizzs[i].id %> ><i class="material-icons"> delete_forever</i></a>
+                        <a href=<%="/quizz/run/"+quizzs[i].id %> ><i class="material-icons"> play_circle_outline</i></a>
+                    </div>
+                </div>
+                <div>
+                    <table class="mdl-data-table mdl-js-data-table mdl-shadow--2p">
+                        <thead>
+                            <tr>
+                            <th class="mdl-data-table__cell--non-numeric">Question</th>
+                            <th>Answers</th>
+                            <th>Rigth Answer</th>
+                            <th>Duration</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <% for(var j=0; j<quizzs[i]["questions"].length; j++) {%>
+                            <tr>
+                            <td class="mdl-data-table__cell--non-numeric"><%=quizzs[i]["questions"][j].text%></td>
+                            <td>
+                                <%=quizzs[i]["questions"][j]["response"][0]%>
+                                <%=quizzs[i]["questions"][j]["response"][1]%>
+                                <%=quizzs[i]["questions"][j]["response"][2]%>
+                                <%=quizzs[i]["questions"][j]["response"][3]%>
+                            </td>
+                            <td><%=quizzs[i]["questions"][j]["answer"]%></td>
+                            <td><%=quizzs[i]["questions"][j]["duration"]%></td>
+                            </tr>
+                            <% } %> 
+                        </tbody>
+                    </table> 
+                </div> 
+            </div> 
         </li>
     <%}%>
     </ul>
 
     <div>
-        <a href="/quizz/create" class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored">
+        <a href="/quizz/create" class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored btn-add-quizz">
             <i class="material-icons">add</i>
         </a>  
     </div>
