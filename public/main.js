@@ -1,5 +1,7 @@
-var question = ({numQuestion}) =>
-      `
+var question = ({
+        numQuestion
+    }) =>
+    `
       <div id="div_question_${numQuestion}">
                     <div class="mdl-textfield mdl-js-textfield">
                         <input class="mdl-textfield__input" type="text" id="question_${numQuestion}" name="questions[${numQuestion}][text]">
@@ -34,7 +36,7 @@ var question = ({numQuestion}) =>
                         <option value="3">3</option>
                         <option value="4">4</option>
                     </select>
-                </di>
+                </div>
 
                 <div id="div_duration_${numQuestion}">
                     <div class="mdl-textfield mdl-js-textfield">
@@ -48,8 +50,9 @@ var question = ({numQuestion}) =>
 var numQuestion = 0;
 
 document.getElementById('btn_Add_Question').addEventListener('click', (event) => {
-        event.preventDefault();
-        numQuestion++;
-        document.getElementById('questions').innerHTML += (question({numQuestion}));
-        
+    event.preventDefault();
+    numQuestion++;
+    document.getElementById('questions').innerHTML += (question({
+        numQuestion
+    }));
 });

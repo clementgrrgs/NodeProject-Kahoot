@@ -19,6 +19,43 @@
     </header>
 
     <div>
-    </div>
+        <form action="/" method="POST">
+            <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                <input class="mdl-textfield__input" type="text" id="pin_quizz">
+                <label class="mdl-textfield__label" for="pin_quizz">Enter quizz pin</label>
+            </div>
+        
+            <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                <input class="mdl-textfield__input" type="text" id="pseudo">
+                <label class="mdl-textfield__label" for="pseudo">Choose a pseudo</label>
+            </div>
+            <button id="enter_Quizz" type="button" class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored" >
+                Connect to Lobby
+            </button>
+            
+        </form>
 
+    </div>
+    
+
+
+    <script src="/socket.io/socket.io.js"></script>
+    <script> 
+    
+        document.getElementById("enter_Quizz").addEventListener("click", (event) => {
+            event.preventDefault();
+            var quizzPin = document.getElementById('pin_quizz').value;
+            var pseudo = document.getElementById('pseudo').value;
+
+            var socket = io('/quizz'+quizzPin);
+            socket.on('MessageConnection', function(message) {
+                if(message == 'Connected'){
+                    console.log('MessageConnection OK');
+                    socket.emit('Eventpseudo', pseudo);
+                }else{
+                    console.log('error MessageConnection');
+                }
+            });   
+        });
+    </script>
     <%- include('_footer'); -%>

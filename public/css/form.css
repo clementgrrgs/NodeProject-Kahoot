@@ -1,43 +1,44 @@
-.div-header{
+.div-header {
     background-color: #3f51b5;
     color: #eeeeee;
     display: flex;
     flex-direction: row;
     align-items: center;
     justify-content: space-between;
-    margin : 10 px;
+    margin: 10 px;
 }
 
-.div-icon-title{
+.div-icon-title {
     display: flex;
     flex-direction: row;
     align-items: center;
 }
 
-.div-header img,.div-header button{
-    margin:10px;
+.div-header img,
+.div-header button {
+    margin: 10px;
 }
 
-.img_Icon{
+.img_Icon {
     width: 10%;
 }
 
-.div-log{
+.div-log {
     display: flex;
     flex-direction: row;
     align-items: baseline;
 }
 
 
-.div-log h6{
-    margin:5px;
+.div-log h6 {
+    margin: 5px;
 }
 
 .div-log button {
-    margin:10px;
+    margin: 10px;
 }
 
-.img_Show{
+.img_Show {
     width: 5%;
 }
 
@@ -47,9 +48,9 @@
     margin: auto;
     padding-top: 3%;
     height: fit-content;
-  }
+}
 
-.demo-list-three li{
+.demo-list-three li {
     /*display: flex;
     flex-direction: row;
     justify-content: space-around;
@@ -57,13 +58,14 @@
     background-color: #999999;
     color: #eeeeee;
     border-radius: 30px;
-    margin : 10px;
-    height: 200px;
+    margin: 10px;
+    height: 300px;
+    overflow: auto;
 }
 
 
 
-.text-field-show{
+.text-field-show {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -72,14 +74,14 @@
     width: 100%;
 }
 
-#id_div_li{
+#id_div_li {
     display: flex;
     flex-direction: row;
     justify-content: space-around;
     align-items: baseline;
 }
 
-.btn-field-show{
+.btn-field-show {
     /*display: flex;
     flex-direction: row;
     align-items: baseline;
@@ -87,23 +89,29 @@
 }
 
 
-.btn-field-show button{
+.btn-field-show button {
     width: 30 px;
     margin: 5px;
 }
 
-.mdl-data-table{
+.mdl-data-table {
     color: #999999;
     border-radius: 10px;
 }
 
 
-.btn-add-quizz{
+.btn-add-quizz {
     margin: 20px;
     margin-left: 30px;
 }
 
-.question{
+
+.mdl-data-table {
+    width: 100%;
+}
+
+
+/*.question{
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -115,4 +123,4 @@
     flex-direction: column;
     align-items: center;
     justify-content: space-around;
-}
+}*/
