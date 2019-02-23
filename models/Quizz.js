@@ -10,14 +10,14 @@ var Quizz = new Schema({
     },
     creator: String,
     player: [String],
+    duration: {
+        type: Number,
+        default: 10
+    },
     questions: [{
         text: String,
         response: [String],
         answer: String,
-        duration: {
-            type: Number,
-            default: 10
-        },
         winners: [String]
     }],
     launch: {
