@@ -1,50 +1,94 @@
 <%- include('../_header'); -%>
 
 <body>
-    <div>
-           <h4>Welcome to Kizz <%=quizz.title%></h4>
-           <h6>The Id to share the quizz is <%=quizz.pin%></h6>
-    </div>
-
-    <div>
-        <ul id='liste_player'>
-        </ul>
-    </div>
-
-        
-    <button id="begin_Quizz" class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored">
-        Begin the quizz
-    </button>  
-
-
-
-    <div>
-        <div id="Text_question">
+    <header>
+        <div class="div-header">
+            <div class="div-icon-title">
+                <img class="img_Icon" src="/img/KizzIcon.png" alt="KizzIcon">
+                <h2>Kizz</h2>
+            </div>
         </div>
-        <div id="Time_Left">
+    </header>
+    <div id="lobby_quizz">
+        <h2>Welcome to <%=quizz.title%></h2>
+        <div id="lobbyDiv">
+            <div>
+                <h4>To share this quizz use the following PIN Code : <%=quizz.pin%></h4>
+                <p>To launch a quizz you need at least 2 players connected</p>
+                <div id="btn_run_quizz">
+                    <button id="begin_Quizz" class="mdl-button mdl-js-button mdl-button--raised mdl-button--accent">
+                        Begin the quizz
+                    </button> 
+                    <a href='/quizz/show'><button id="cancel_Quizz" class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored">
+                        Close the quizz
+                    </button></a>
+                </div>
+            </div>
+
+            <div>
+                <h4>Players connected to the quizz</h4>
+                <ul id='liste_player'>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div id="QuizzParty">
+        <div>
+            <h2><%=quizz.title%></h2>
+        </div>
+        <div id ="questTextTime">
+            <h4 id="Text_question">
             
+            </h4>
+
+            <h4 id="Time_Left"> 
+              
+            </h4>
+        </div>
+
+        <div id='div_answers'>
+            <div id='div_answers1-2'>
+                <div id="answer1">
+                
+                </div>
+                <div id="answer2">
+                
+                </div>
+            </div>
+            <div id='div_answers3-4'>
+                <div id="answer3">
+                
+                </div>
+                <div id="answer4">
+                
+                </div>
+            </div> 
         </div>
     </div>
+    
 
-    <div>
-        <div id="answer1">
+    <div id='quizzEnd'>
+        <div>
+            <h2><%=quizz.title%></h2>
         </div>
-        <div id="answer2">
+
+        <div id="result">
         </div>
-        <div id="answer3">
-        </div>
-        <div id="answer4">
-        </div>
+
+        <a href='/quizz/show'><button class="mdl-button mdl-js-button mdl-button--raised mdl-button--accent">Fermer</button></a>
+
     </div>
-
-   <div id="result">
-   
-   </div>
+  
             
 
 
     <script src="/socket.io/socket.io.js"></script>
-    <script> 
+    <script>
+        document.getElementById('lobby_quizz').style.display = 'flex';
+        document.getElementById('QuizzParty').style.display = 'none';
+        document.getElementById('quizzEnd').style.display = 'none';
+
         var socket = io('/quizz'+<%=quizz.pin%>);
         socket.on('ackConnection', function(message) {
                 console.log('client run connected');                 
@@ -63,11 +107,14 @@
                     document.getElementById("begin_Quizz").style.display = "block";
                 }
         });
-
+        
         var btnQuizz =  document.getElementById("begin_Quizz");
         btnQuizz.addEventListener("click", () => {
-            socket.emit("begin",{players : CurrentPlayers});
 
+            document.getElementById('lobby_quizz').style.display = 'none';
+            document.getElementById('QuizzParty').style.display = 'flex';
+            socket.emit("begin",{players : CurrentPlayers});
+        
             socket.on('go',(time) => {
                 document.getElementById('Text_question').innerHTML = '<h2>The battle will begin in '+time+' second</h2>';
                 var timeLeft = time;
@@ -79,20 +126,20 @@
                     }
                 }, 1000);
             });
-
+        
             socket.on('question', (oQuest) => {
                     var textQuest = oQuest.quest.text;
                     var aAnswer = [oQuest.quest.response[0],oQuest.quest.response[1],oQuest.quest.response[2],oQuest.quest.response[3]];
                     var duration = oQuest.time;
                     var answer = 0;
-
+        
                     document.getElementById('Text_question').innerHTML = '<h2>'+textQuest+'</h2>';
                     document.getElementById('Time_Left').innerHTML =  oQuest.time;
                     document.getElementById('answer1').innerHTML = aAnswer[0];
                     document.getElementById('answer2').innerHTML = aAnswer[1];
                     document.getElementById('answer3').innerHTML = aAnswer[2];
                     document.getElementById('answer4').innerHTML = aAnswer[3];
-
+        
                     var timeLeft = oQuest.time;
                     var IntQuest = setInterval(() => { 
                         timeLeft --;  
@@ -102,17 +149,18 @@
                             clearInterval(IntQuest);
                         }
                     }, 1000);
-
+        
             });
-
-            socket.on('winner' , (winner) => {
-                console.log(winner);
-                var sPseudo = winner.pseudo;
-                var sScore = winner.score;
+        
+            socket.on('winner' , (win) => {
+                document.getElementById('QuizzParty').style.display = 'none';
+                document.getElementById('quizzEnd').style.display = 'flex';
+                var sPseudo = win.winner.pseudo;
+                var sScore = win.winner.score;
                 var message = "<h4>The winner is "+sPseudo+" with the extraordinary score of : "+sScore+"</h4>";
                 document.getElementById('result').innerHTML = message;
+                
             });
         });
-
     </script>
     <%- include('../_footer'); -%>

@@ -18,174 +18,87 @@
         </div>
     </header>
 
-    <div>
-            <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                <input class="mdl-textfield__input" type="text" id="pin_quizz">
-                <label class="mdl-textfield__label" for="pin_quizz">Enter quizz pin</label>
-            </div>
-        
-            <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                <input class="mdl-textfield__input" type="text" id="pseudo">
-                <label class="mdl-textfield__label" for="pseudo">Choose a pseudo</label>
-            </div>
-            <button id="enter_Quizz" type="button" class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored" >
-                Connect to Lobby
-            </button>
+    <div id="homeNotConnected">
+        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+            <input class="mdl-textfield__input" type="text" id="pin_quizz">
+            <label class="mdl-textfield__label" for="pin_quizz">Enter quizz pin</label>
+        </div>
+    
+        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+            <input class="mdl-textfield__input" type="text" id="pseudo">
+            <label class="mdl-textfield__label" for="pseudo">Choose a pseudo</label>
+        </div>
+        <button id="enter_Quizz" type="button" class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored" >
+            Connect to Lobby
+        </button>  
+    </div>
 
-        <div>
-            <div>
+    <div id="HomeLobby">
+            <div class ="OnHomeLobby">
+                <h4>Waiting for players to join the quizz</h4>
+                <div class="mdl-spinner mdl-js-spinner is-active"></div>
+            </div>            
+            
+            <div class ="OnHomeLobby">
+                <h4>Connected Players</h4>
                 <ul id="id_li_Connected_player">
                 </ul>
             </div>
-        </div>
-
-
-        <div>
-        <div id="Text_question">
-        </div>
-        <div id="Time_Left">
-            
-        </div>
     </div>
-
-        <div>
-            <button id="answer1" class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored">
-            </button>
-            <button id="answer2" class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored">
-            </button>
-            <button id="answer3" class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored">
-            </button>
-            <button id="answer4" class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored">
-            </button>
-        </div>
-
-        <div id="IsAnswerCorrect">
-        </div>
-
-        <div id="point">
         
+
+
+    <div id="duringQuizz">
+        <div class="questAnswer">
+            <div>
+                <h4 id="Text_question"></h4>
+            </div>
+            <div> 
+                <h4 id="Time_Left"></h4>
+            </div>
+        </div>
+        
+        <div class="questAnswer">
+            <div>
+                <h4 id="IsAnswerCorrect"></h4>
+            </div>
+            <div>
+                <h4 id="point"></h4>
+            </div>
         </div>
 
-    </div>
-    
+        
 
+        <div id='div_answers_btn'>
+            <div id='div_answers1-2_btn'>
+                <div id="answer1_btn">
+                    <button id="answer1" class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored">
+                    </button>
+                </div>
+                <div id="answer2_btn">
+                    <button id="answer2" class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored">
+                    </button>
+                </div>
+            </div>
+            <div id='div_answers3-4_btn'>
+                <div id="answer3_btn">
+                    <button id="answer3" class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored">
+                    </button>
+                </div>
+                <div id="answer4_btn">
+                    <button id="answer4" class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored">
+                    </button>
+                </div>
+            </div> 
+        </div>   
+    </div>
+
+    <div id="endQuizz">
+        <h2>Quizz Finish !!</h2>
+        <h2 id='finalScore'></h2>
+        <a href='/'><button class="mdl-button mdl-js-button mdl-button--raised mdl-button--accent">Fermer</button></a>
+    </div>
 
     <script src="/socket.io/socket.io.js"></script>
-    <script>  
-        document.getElementById("enter_Quizz").addEventListener("click", (event) => {
-            event.preventDefault();
-            var quizzPin = document.getElementById('pin_quizz').value;
-            var pseudo = document.getElementById('pseudo').value;
-            var oScore = {name: pseudo,
-                        score : 0};
-
-            var socket = io('/quizz'+quizzPin);
-            socket.on('ackConnection', function() {         
-                    socket.emit('Eventpseudo', pseudo);
-            });
-
-            socket.on('Players', function(players) {
-                var Listplayers = document.getElementById('id_li_Connected_player');
-                Listplayers.innerHTML = "";        
-                for(var i=0;i<players.length; i++){
-                    Listplayers.innerHTML += '<li>'+players[i]+'</li>';
-                }
-            });
-            
-            socket.on('go',(time) => {
-                document.getElementById('Text_question').innerHTML = '<h2>The battle will begin in '+time+' second</h2>';
-                var timeLeft = time;
-                var IntQuest = setInterval(() => { 
-                    timeLeft --;  
-                    document.getElementById('Text_question').innerHTML = '<h2>The battle will begin in '+timeLeft+' second</h2>';
-                    if (timeLeft <= 0){
-                        clearInterval(IntQuest);
-                    }
-                }, 1000);
-            });
-
-            socket.on('question', (oQuest) => {
-                    var textQuest = oQuest.quest.text;
-                    var aAnswer = [oQuest.quest.response[0],oQuest.quest.response[1],oQuest.quest.response[2],oQuest.quest.response[3]];
-                    var duration = oQuest.time;
-                    var answer = 0;
-
-                    document.getElementById('Text_question').innerHTML = '<h2>'+textQuest+'</h2>';
-                    document.getElementById('Time_Left').innerHTML =  oQuest.time;
-
-                    var answer1 = document.getElementById('answer1');
-                    answer1.innerText = aAnswer[0];
-                    var answer2 = document.getElementById('answer2');
-                    answer2.innerText = aAnswer[1];
-                    var answer3 = document.getElementById('answer3');
-                    answer3.innerText = aAnswer[2];
-                    var answer4 = document.getElementById('answer4');
-                    answer4.innerText = aAnswer[3];
-                    answer1.disabled = false;
-                    answer2.disabled = false;
-                    answer3.disabled = false;
-                    answer4.disabled = false;
-
-
-                    answer1.addEventListener("click", () => {
-                        socket.emit("response", {resp : 1, pseudo : pseudo});
-                        answer1.disabled = true;
-                        answer2.disabled = true;
-                        answer3.disabled = true;
-                        answer4.disabled = true;
-                    });
-
-                    answer2.addEventListener("click", () => {
-                        socket.emit("response", {resp : 2, pseudo : pseudo});
-                        answer1.disabled = true;
-                        answer2.disabled = true;
-                        answer3.disabled = true;
-                        answer4.disabled = true;
-                    });
-
-                    answer3.addEventListener("click", () => {
-                        socket.emit("response", {resp : 3, pseudo : pseudo});
-                        answer1.disabled = true;
-                        answer2.disabled = true;
-                        answer3.disabled = true;
-                        answer4.disabled = true;
-                    });
-
-                    answer4.addEventListener("click", () => {
-                        socket.emit("response", {resp : 4, pseudo : pseudo});
-                        answer1.disabled = true;
-                        answer2.disabled = true;
-                        answer3.disabled = true;
-                        answer4.disabled = true;
-                    });
-
-
-
-                    var timeLeft = oQuest.time;
-                    var IntQuest = setInterval(() => { 
-                        timeLeft --;  
-                        document.getElementById('Time_Left').innerHTML = timeLeft;
-                        
-                        if (timeLeft <= 0){
-                            clearInterval(IntQuest);
-                        }
-                    }, 1000);
-            });
-
-
-            socket.on('Correct', (message) => {
-                document.getElementById('IsAnswerCorrect').innerHTML = message.text;
-                if(message.text == 'This is a right Answer' && oScore.name == message.pseudo){
-                    oScore.score = oScore.score + 1;
-                    document.getElementById('point').innerHTML =  oScore.score;
-                } 
-            });
-
-
-            socket.on('quizzDone', () => {
-                socket.emit('result', oScore);
-            });
-
-        });
-    </script>
+    <script src="/script/player.js"></script>
     <%- include('_footer'); -%>

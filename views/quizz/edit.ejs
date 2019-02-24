@@ -18,61 +18,61 @@
         </div>
     </header>
 
-    <form action=<%="/quizz/edit/"+quizz.id %> method="POST">
+    <form action=<%="/quizz/edit/"+quizz.id%> method="POST">
 
         <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-            <input class="mdl-textfield__input" type="text" id="title" name="title">
+            <input class="mdl-textfield__input" type="text" id="title" name="title" value=<%= quizz.title%>>
             <label class="mdl-textfield__label" for="title"><%= quizz.title%></label>
         </div>
 
         <div id="questions">
         <%for (var i=0; i<quizz["questions"].length; i++){%>
-            <div id=<%="div_question_"+i%>>
+            <div id= <%="div_question_"+i%>>
                     <div class="mdl-textfield mdl-js-textfield">
-                        <input class="mdl-textfield__input" type="text" id=<%="question_"+i%> name=<%=quizz.questions[i].text%>>
+                        <input class="mdl-textfield__input" type="text" id=<%="question_"+i%> name="questions[<%=i%>][text]" value=<%= quizz.questions[i].text%>>
                         <label class="mdl-textfield__label" for=<%="question_"+i%>><%= quizz.questions[i].text%></label>
                     </div>
                 </div>
 
                 <div id=<%="div_response_"+i%>>
                     <div class="mdl-textfield mdl-js-textfield">
-                        <input class="mdl-textfield__input" type="text" id=<%="response1_"+i%> name=<%=quizz.questions[i].response[0]%>>
+                        <input class="mdl-textfield__input" type="text" id=<%="response1_"+i%> name="questions[<%=i%>][response][0]" value=<%= quizz.questions[i].response[0] %>>
                         <label class="mdl-textfield__label" for=<%="response1_"+i%>><%= quizz.questions[i].response[0] %></label>
                     </div>
                     <div class="mdl-textfield mdl-js-textfield">
-                        <input class="mdl-textfield__input" type="text" id=<%="response1_"+i%> name=<%=quizz.questions[i].response[1]%>>
+                        <input class="mdl-textfield__input" type="text" id=<%="response2_"+i%> name="questions[<%=i%>][response][1]" value=<%= quizz.questions[i].response[1] %>>
                         <label class="mdl-textfield__label" for=<%="response2_"+i%>><%= quizz.questions[i].response[1] %></label>
                     </div>
                     <div class="mdl-textfield mdl-js-textfield">
-                        <input class="mdl-textfield__input" type="text" id=<%="response1_"+i%> name=<%=quizz.questions[i].response[2]%>>
+                        <input class="mdl-textfield__input" type="text" id=<%="response3_"+i%> name="questions[<%=i%>][response][2]" value=<%= quizz.questions[i].response[2] %>>
                         <label class="mdl-textfield__label" for=<%="response3_"+i%>><%= quizz.questions[i].response[2] %></label>
                     </div>
                     <div class="mdl-textfield mdl-js-textfield">
-                        <input class="mdl-textfield__input" type="text" id=<%="response1_"+i%> name=<%=quizz.questions[i].response[3]%>>
+                        <input class="mdl-textfield__input" type="text" id=<%="response14_"+i%> name="questions[<%=i%>][response][3]" value=<%= quizz.questions[i].response[3] %>>
                         <label class="mdl-textfield__label" for=<%="response4_"+i%>><%= quizz.questions[i].response[3] %></label>
                     </div>
                 </div>
 
                 <div id=<%="div_select_"+i%>>
-                    <h6>Choose the right answer !!</h6>
-                    <select name=<%=quizz.questions[i].answer%>>
+                    <h6>Choose the right answer</h6>
+                    <select name="questions[<%=i%>][answer]">
                         <option value="1">1</option>
                         <option value="2">2</option>
                         <option value="3">3</option>
                         <option value="4">4</option>
                     </select>
-                </div>
-
-                <div id=<%="div_duration_"+i%>>               
-                    <div class="mdl-textfield mdl-js-textfield">
-                        <input class="mdl-textfield__input" type="text" pattern="-?[0-9]*(\.[0-9]+)?" id=<%="duration_"+i%> name=<%=quizz.questions[i].duration%>>
-                        <label class="mdl-textfield__label" for=<%="duration_"+i%>><%= quizz.questions[i].duration%></label>
-                        <span class="mdl-textfield__error">Input is not a number!</span>
-                    </div>
-                </div>
+                </div>     
         <%}%>
         </div>
 
+
+        <div id="div_duration">               
+                    <div class="mdl-textfield mdl-js-textfield">
+                        <input class="mdl-textfield__input" type="text" pattern="-?[0-9]*(\.[0-9]+)?" id="duration" name="duration" value=<%= quizz.duration%>>
+                        <label class="mdl-textfield__label" for="duration"><%= quizz.duration%></label>
+                        <span class="mdl-textfield__error">Input is not a number!</span>
+                    </div>
+                </div>
         <button type="submit" class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored" >
             Edit
         </button>

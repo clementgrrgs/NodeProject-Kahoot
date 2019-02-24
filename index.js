@@ -1,4 +1,3 @@
-//npm run dev   ==>  Run the application
 const express = require('express');
 const app = express();
 const router = express.Router();
@@ -25,7 +24,7 @@ require('./models/Quizz');
 
 
 /*Local Mongodb*/
-mongoose.connect('mongodb://localhost:27017/KizzDatabase', {
+mongoose.connect(`mongodb://localhost:27017/KizzDatabase`, {
     useNewUrlParser: true
 }, (err) => {
     if (err) throw err;
@@ -62,16 +61,6 @@ app.use('/', routes);
 app.use('/users', usersRoutes);
 app.use('/quizz', quizzRoutes);
 
-
-/*io.on('connection', socket => {
-    console.log('A user is connected');
-    socket.emit('message', 'Vous êtes bien connecté !');
-
-    socket.on('message', function (message) {
-        console.log('Un client me parle ! Il me dit : ' + message);
-    });
-    socket.on('disconnect', () => console.log('user disconnected'));
-});*/
 
 http.listen(port, () => console.log(`App listening at http://127.0.0.1:${port}`));
 

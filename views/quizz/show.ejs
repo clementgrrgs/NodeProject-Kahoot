@@ -13,7 +13,7 @@
                 <a href='../logout'><button class="mdl-button mdl-js-button mdl-button--raised mdl-button--accent">LogOut</button></a>
             </div>
             <% }else{ %>
-            <a href='login'><button class="mdl-button mdl-js-button mdl-button--raised mdl-button--accent">LogIn</button></a>
+            <a href='../login'><button class="mdl-button mdl-js-button mdl-button--raised mdl-button--accent">LogIn</button></a>
             <% }%>
         </div>
     </header>
@@ -25,8 +25,7 @@
             <div class="text-field-show">
                 <div id='id_div_li'>
                     <div>
-                        <img class="img_Show" src="/img/questionMarkRounded.png" alt="Question">
-                        <span><%=quizzs[i].title%></span>
+                        <h4><%=quizzs[i].title%></h4>
                     </div>
                     <div class="btn-field-show">
                         <a href=<%="/quizz/edit/"+quizzs[i].id %> ><i class="material-icons"> edit</i></a>
@@ -34,14 +33,13 @@
                         <a href=<%="/quizz/run/"+quizzs[i].id %> ><i class="material-icons"> play_circle_outline</i></a>
                     </div>
                 </div>
-                <div>
+                <div class="div_table_show">
                     <table class="mdl-data-table mdl-js-data-table mdl-shadow--2p">
                         <thead>
                             <tr>
                             <th class="mdl-data-table__cell--non-numeric">Question</th>
                             <th>Answers</th>
                             <th>Rigth Answer</th>
-                            <th>Duration</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -49,13 +47,12 @@
                             <tr>
                             <td class="mdl-data-table__cell--non-numeric"><%=quizzs[i]["questions"][j].text%></td>
                             <td>
-                                <%=quizzs[i]["questions"][j]["response"][0]%>
-                                <%=quizzs[i]["questions"][j]["response"][1]%>
-                                <%=quizzs[i]["questions"][j]["response"][2]%>
-                                <%=quizzs[i]["questions"][j]["response"][3]%>
+                                <%=quizzs[i]["questions"][j]["response"][0]%><br>
+                                <%=quizzs[i]["questions"][j]["response"][1]%><br>
+                                <%=quizzs[i]["questions"][j]["response"][2]%><br>
+                                <%=quizzs[i]["questions"][j]["response"][3]%><br>
                             </td>
                             <td><%=quizzs[i]["questions"][j]["answer"]%></td>
-                            <td><%=quizzs[i]["questions"][j]["duration"]%></td>
                             </tr>
                             <% } %> 
                         </tbody>

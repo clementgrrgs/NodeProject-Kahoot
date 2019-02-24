@@ -1,3 +1,4 @@
+
 var question = ({numQuestion}) =>
     `
       <div id="div_question_${numQuestion}">
@@ -41,8 +42,6 @@ var numQuestion = 0;
 
 document.getElementById('btn_Add_Question').addEventListener('click', (event) => {
     event.preventDefault();
-    document.getElementById('questions').innerHTML += (question({
-        numQuestion
-    }));
+    document.getElementById('questions').innerHTML += (question({numQuestion}));
     numQuestion++;
 });

@@ -42,7 +42,7 @@ module.exports = (io) => {
 
 
     router.get('/edit/:id', (req, res, next) => {
-        mongoose.model('Quizz').findById(req.params.id, (err, item) => {
+        mongoose.model('Quizz').findById(req.params.id,(err, item) => {
             res.render('quizz/edit', {
                 quizz: item,
                 user: req.user
